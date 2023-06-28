@@ -18,11 +18,10 @@ class MtgImageRecognition:
         fig, ax = plt.subplots(figsize=(10, 10))
         keras_ocr.tools.drawAnnotations(self.imgs[index], self.pred[index], ax=ax)
         plt.show()
-    def get_card_name(self, index): self.pred[index]
+    def get_card_name(self, index): return self.pred[index]
 
 img = keras_ocr.tools.read("https://i.ebayimg.com/images/g/ecUAAOSw07diceIX/s-l1600.jpg")
 yuriko = keras_ocr.tools.read("https://i.ebayimg.com/images/g/s~UAAOSws2dixw0m/s-l1200.webp")
 ir = MtgImageRecognition([img,yuriko])
 ir.load_card()
-# print(list(ir.get_card_name(1)))
 ir.show_card(1)
