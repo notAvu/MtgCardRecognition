@@ -12,7 +12,6 @@ class scryfall_api:
         jason = json.loads(req.content, object_hook=lambda d: SimpleNamespace(**d))
         return jason
     def parse_name(cardName) ->str:
-        # cardName = Card.where(name = cardName).where(language= '').all()
         return cardName.replace(" ","+")
     def card_by_name(name):
         formated_name = scryfall_api.parse_name(name)
@@ -26,9 +25,11 @@ class scryfall_api:
         formated_name = scryfall_api.parse_name(name)
         return scryfall_api.card_by_name(formated_name).prices.eur
     def search_by_name(name):
-        #TODO: allow search parameters 
+        #TODO: support search parameters 
         formated_name = scryfall_api.parse_name(name)
         req = requests.get(f"https://api.scryfall.com/cards/search?order=released&include_multilingual=true&unique=prints&q=!{formated_name}")
+        if req.status_code == 404:
+            req = requests.get(f"https://api.scryfall.com/cards/search?order=released&include_multilingual=true&unique=prints&q={formated_name}")
         jason = json.loads(req.content, object_hook=lambda d: SimpleNamespace(**d))
         return jason
     def version_prices(name):
