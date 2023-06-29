@@ -11,10 +11,14 @@ rDf=pd.DataFrame(results)
 # plt.show()
 print(rDf)
 cardName = rDf[1][0]
-if sf.card_by_name(cardName) == None:
-    cardName = rDf[1][1]
-print(f"{sf.version_prices(cardName)}")
+for index, row in rDf.iterrows():
+    val = sf.card_by_name(cardName)
+    if val != None:
+        break
+    cardName = row[1]
+# while i < rDf.si:
+#     cardName = rDf[1][i]
+#     sf.card_by_name(cardName) == None
 
-# card = Card.where(name = cardName).all()
-# for c in card:
-#     print(f"Card: {c.name} ({c.set}) \n Cost: {c.mana_cost} \n Cardmarket: {3}€")
+
+print(f"{sf.version_prices(cardName)}")
