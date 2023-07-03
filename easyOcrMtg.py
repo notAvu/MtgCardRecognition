@@ -3,9 +3,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from scryfall import scryfall_api as sf
 
-img= plt.imshow(plt.imread("./opt.jpg"))
+img= plt.imshow(plt.imread("./test_images/GobRecruiter.jpg"))
 reader = easyocr.Reader(lang_list=['es','en'], gpu= False)
-results = reader.readtext("./opt.jpg")
+results = reader.readtext("./test_images/GobRecruiter.jpg")
 rDf=pd.DataFrame(results)
 
 print(rDf)
