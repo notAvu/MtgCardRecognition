@@ -20,7 +20,6 @@ Builder.load_string('''
         on_press: root.capture()
 ''')
 
-
 class CameraClick(BoxLayout):
     def capture(self):
         '''
@@ -32,11 +31,9 @@ class CameraClick(BoxLayout):
         camera.export_to_png("IMG_{}.png".format(timestr))
         print("Captured")
 
-
 class TestCamera(App):
 
     def build(self):
         return CameraClick()
-
 
 TestCamera().run()

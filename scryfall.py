@@ -44,7 +44,7 @@ class scryfall_api:
         TODO: This method should allow parameters such as mana cost, text in card, etc. 
         """
         formated_name = scryfall_api.parse_name(name)
-        req = requests.get(f"https://api.scryfall.com/cards/search?order=released&include_multilingual=true&unique=prints&q={formated_name}")
+        req = requests.get(f"https://api.scryfall.com/cards/search?order=released&include_multilingual=true&unique=prints&q=!{formated_name}")
         if req.status_code == 404:
             req = requests.get(f"https://api.scryfall.com/cards/search?order=released&include_multilingual=true&unique=prints&q={formated_name}")
         jason = json.loads(req.content, object_hook=lambda d: SimpleNamespace(**d))
