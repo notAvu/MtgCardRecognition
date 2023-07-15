@@ -48,6 +48,9 @@ class scryfall_api:
         if req.status_code == 404:
             req = requests.get(f"https://api.scryfall.com/cards/search?order=released&include_multilingual=true&unique=prints&q={formated_name}")
         jason = json.loads(req.content, object_hook=lambda d: SimpleNamespace(**d))
+        if jason.data[0].prices.eur == None and jason.data[0].prices.eur == None:
+            req = requests.get(f"https://api.scryfall.com/cards/search?order=released&unique=prints&q={jason.data[0].name}")
+            jason = json.loads(req.content, object_hook=lambda d: SimpleNamespace(**d))
         return jason
         
     def version_prices(name):
