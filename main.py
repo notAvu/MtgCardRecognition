@@ -1,6 +1,11 @@
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.boxlayout import BoxLayout
+from glob import glob
+from random import randint
+from os.path import join, dirname
+from kivy.logger import Logger
+from kivy.properties import StringProperty
 import time
 from MtgOcr import MtgOcr as ocr
 Builder.load_string('''
@@ -32,12 +37,15 @@ class CameraClick(BoxLayout):
         imageName = "IMG_{}.png".format(timestr)
         camera.export_to_png(imageName)
         cardReader = ocr()
-        cardReader.read_card("{}.png".format(imageName))
+        cardReader.read_card("{}/IMG_{}.png".format(self.curdir,imageName))
         print("Captured")
 
 class TestCamera(App):
 
     def build(self):
+        root = self.root
+        self.curdir = dirname(__file__)
         return CameraClick()
 
-TestCamera().run()
+if __name__ == "__main__":
+    TestCamera().run()
